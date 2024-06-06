@@ -1,5 +1,7 @@
+use f1;
+
 delimiter #
-create procedure load_foo_test_data()
+create procedure year_input()
 begin
 
 declare v_max int unsigned default 2024;
@@ -15,8 +17,6 @@ end #
 
 delimiter ;
 
-call load_foo_test_data();
+call year_input();
 
-DROP procedure load_foo_test_data;
-
-SELECT season_year from seasons;
+DROP procedure year_input;
