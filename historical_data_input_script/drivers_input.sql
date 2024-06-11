@@ -7,6 +7,5 @@ FIELDS TERMINATED BY ';'
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
-(driver_firstname, driver_lastname, driver_nationality, abbreviation);
+(driver_firstname, driver_lastname, driver_nationality);
 
-SELECT * FROM drivers;
