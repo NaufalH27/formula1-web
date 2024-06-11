@@ -42,8 +42,10 @@ CREATE TABLE RaceResults(
 result_id INT AUTO_INCREMENT PRIMARY KEY,
 driver_id INT,
 position INT ,
-poINTs INT NOT NULL,
+points INT NOT NULL,
 Race_id INT NOT NULL,
+status_flag VARCHAR(255),
+best_time TIME,    
 FOREIGN KEY(driver_id) REFERENCES Drivers(driver_id),
 FOREIGN KEY(race_id) REFERENCES race(race_id)
 );
