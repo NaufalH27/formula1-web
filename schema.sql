@@ -11,8 +11,7 @@ CREATE TABLE Drivers(
 driver_id INT AUTO_INCREMENT PRIMARY KEY,
 driver_firstname VARCHAR(255) NOT NULL,
 driver_lastname VARCHAR(255),
-driver_nationality VARCHAR(255),
-abbrevation VARCHAR(255)
+driver_nationality VARCHAR(255)
 );
 
 CREATE TABLE  Seasons(
