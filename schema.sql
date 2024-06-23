@@ -31,8 +31,8 @@ CREATE TABLE race(
 race_id INT AUTO_INCREMENT PRIMARY KEY,
 season_id INT NOT NULL,
 gp_id INT NOT NULL,
-race_date date NOT NULL,
-FOREIGN KEY (season_id) REFERENCES Seasons(season_id),
+race_datetime datetime NOT NULL,
+FOREIGN KEY (season_id) REFERENCES Seasons(season_year),
 FOREIGN KEY (gp_id) REFERENCES GrandPrix(gp_id)
 );
 
