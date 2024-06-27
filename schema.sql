@@ -1,75 +1,76 @@
 CREATE DATABASE F1;
 USE F1;
 
+
 CREATE TABLE Constructors(
 constructor_id INT AUTO_INCREMENT PRIMARY KEY,
-constructor_name VARCHAR(255) unique NOT NULL,
-constructor_nationality VARCHAR(255)
+constructor_ref VARCHAR(255) UNIQUE NOT NULL,
+constructor_name VARCHAR(255) NOT NULL,
+constructor_nationality VARCHAR(255),
+url VARCHAR(1000)
 );
+
 
 CREATE TABLE Drivers(
 driver_id INT AUTO_INCREMENT PRIMARY KEY,
+driver_ref VARCHAR(255) UNIQUE NOT NULL,
 driver_firstname VARCHAR(255) NOT NULL,
 driver_lastname VARCHAR(255),
-driver_nationality VARCHAR(255)
+driver_nationality VARCHAR(255),
+driver_birthdate DATE NOT NULL,
+url VARCHAR(1000)
 );
+
 
 CREATE TABLE  Seasons(
-season_year INT PRIMARY KEY
+season_id INT AUTO_INCREMENT PRIMARY KEY,
+season_year INT NOT NULL
 );
 
 
-CREATE TABLE GrandPrix(
-gp_id INT AUTO_INCREMENT PRIMARY KEY,
-gp_name VARCHAR(255) NOT NULL,
-track_country VARCHAR(255)
+CREATE TABLE Circuits(
+circuit_id INT AUTO_INCREMENT PRIMARY KEY,
+circuit_name VARCHAR(255) NOT NULL,
+circuit_ref VARCHAR(255)  UNIQUE NOT NULL,
+circuit_country VARCHAR(255) NOT NULL,
+circuit_location VARCHAR(255) NOT NULL,
+url VARCHAR(1000)
 );
-
 
 
 CREATE TABLE race(
 race_id INT AUTO_INCREMENT PRIMARY KEY,
 season_id INT NOT NULL,
-gp_id INT NOT NULL,
+GrandPrix_name VARCHAR(255) NOT NULL,
+circuit_id INT NOT NULL,
 race_datetime datetime NOT NULL,
-FOREIGN KEY (season_id) REFERENCES Seasons(season_year),
-FOREIGN KEY (gp_id) REFERENCES GrandPrix(gp_id)
+FOREIGN KEY (season_id) REFERENCES Seasons(season_id),
+FOREIGN KEY (circuit_id) REFERENCES circuits(circuit_id)
 );
-
 
 
 CREATE TABLE RaceResults(
 result_id INT AUTO_INCREMENT PRIMARY KEY,
-driver_id INT,
-position INT ,
+driver_id INT NOT NULL,
+position INT NOT NULL,
 points INT NOT NULL,
 Race_id INT NOT NULL,
 status_flag VARCHAR(255),
-best_time TIME,    
+best_time TIME,
+race_time TIME,
 FOREIGN KEY(driver_id) REFERENCES Drivers(driver_id),
 FOREIGN KEY(race_id) REFERENCES race(race_id)
 );
 
 
-
-CREATE TABLE DriverNumber (
-    driver_id INT,
-    season_id INT,
-    PRIMARY KEY (driver_id, season_id),
-    FOREIGN KEY (driver_id) REFERENCES Drivers(driver_id),
-    FOREIGN KEY (season_id) REFERENCES Seasons(season_id)
-);
-
 CREATE TABLE driverConstructor(
-    driver_id INT,
-    season_id INT,
-    constructor_id INT,
-    PRIMARY KEY (driver_id, season_id, constructor_id),
-    FOREIGN KEY (driver_id) REFERENCES Drivers(driver_id),
-    FOREIGN KEY (season_id) REFERENCES Seasons(season_id),
-    FOREIGN KEY (constructor_id) REFERENCES constructors(constructor_id)
+driver_id INT NOT NULL,
+season_id INT NOT NULL,
+constructor_id INT,
+FOREIGN KEY (driver_id) REFERENCES Drivers(driver_id),
+FOREIGN KEY (season_id) REFERENCES Seasons(season_id),
+FOREIGN KEY (constructor_id) REFERENCES constructors(constructor_id)
 );
-
 
 
 
