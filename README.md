@@ -3,4 +3,4 @@ small project to show formula 1 historical statistic and leaderboard livestream 
 
 FastF1 documentation:https://docs.fastf1.dev/
 
-ergast API : https://ergast.com/mrd/
+ergast API documentation: https://ergast.com/mrd/
