@@ -1,6 +1,6 @@
 import requests
 import json
-from database_module import f1_database
+from database_connect_module import f1_database
 
 # Constants
 API_BASE_URL = "https://ergast.com/api/f1"
