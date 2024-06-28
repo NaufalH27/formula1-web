@@ -41,6 +41,7 @@ url VARCHAR(1000)
 CREATE TABLE race(
 race_id INT AUTO_INCREMENT PRIMARY KEY,
 season_id INT NOT NULL,
+round_number INT NOT NULL
 GrandPrix_name VARCHAR(255) NOT NULL,
 circuit_id INT NOT NULL,
 race_datetime datetime NOT NULL,
@@ -75,4 +76,16 @@ FOREIGN KEY (season_id) REFERENCES Seasons(season_id),
 FOREIGN KEY (constructor_id) REFERENCES constructors(constructor_id)
 );
 
+CREATE TABLE DriverTotalPoints (
+driver_id INT PRIMARY KEY,
+total_points INT DEFAULT 0,
+FOREIGN KEY (driver_id) REFERENCES Drivers(driver_id)
+);
+
+
+CREATE TABLE ConstructorTotalPoints (
+constructor_id INT PRIMARY KEY,
+total_points INT DEFAULT 0,
+FOREIGN KEY (constructor_id) REFERENCES Constructors(constructor_id)
+);
 
