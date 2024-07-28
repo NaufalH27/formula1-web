@@ -1,8 +1,8 @@
 import sys
 sys.path.insert(1, "..")
 from abc import ABC, abstractmethod
-from f1_entities.f1_entities_element import *
-from API.API_fetch_entities import *
+from f1_entities.f1_entities_element import driverElement, constructorElement, circuitElement
+from API.API_fetch_entities import get_data_from_api
 
 class f1EntitiesStrategy(ABC):
     @abstractmethod

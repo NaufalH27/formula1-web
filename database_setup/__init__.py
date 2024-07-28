@@ -1,26 +1,35 @@
-import f1_year_load
-from database_connect import user
+from database_connect import DBServer
 from f1_entities import f1_entities_load
 from f1_races.f1_session_load import f1season
 from mysql.connector import Error
-     
+
+database = DBServer()
+
+# Connect your server right here
+host = "1.1.1.1"
+user = "root"
+password="pw" 
+
 if __name__ == "__main__":
-  try:
-    user.create_and_connect_to_database("test")
-    f1_entities_load.load_all_entities()
+  database.set_server(host, user, password)
 
-    for year in range(1950, 2025):
-        f1_year_load.load_year(year)
-        curr_season = f1season(year)
-        curr_season.insert_to_database()
-        user.commit()
+  #connect your database in your database from your server right here to become a place to the f1 data
+  #IMPORTANT Note: PLEASE RUN THE database_schema.sql FIRST IN YOUR DATABASE SERVER!!!!!!!!!!!!!!!!!!!
+  database.connect_to_database("f1db")
 
-  except IndexError as e:
-    user.commit()
-    print("LOG ALL DATA HAS BEEN LOADED")
-  
-  except Error as e:
-     print(e)
+  # this function below for loading the participant or entities data to database
+  # consisting: Driver, Constructor, and Circuits
+  f1_entities_load.load_all_entities()
+
+#load race data each year
+  for year in range(1950, 2025):
+      curr_season = f1season(year)
+      curr_season.insert_to_database()
+
+  print("LOG : ALL DATA SUCCESSFULLY LOADED TO DATABASE")   
+  database.close_connection()  
+
+
         
   
         

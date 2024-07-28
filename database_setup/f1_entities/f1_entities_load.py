@@ -1,4 +1,4 @@
-from f1_entities.f1_entity import *
+from f1_entities.f1_entity import f1EntitiesStrategy, driverEntities, constructorEntities, circuitEntities
 
 def load_entities(entities : f1EntitiesStrategy):
     entities.load_entities_to_database()

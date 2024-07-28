@@ -15,24 +15,14 @@ MAX_ROUND = {
 
 SESSION_KEY_CONSTRAINT = {
     "r": "/results", "race": "/results",
-    "q": "/qualifying", "qualifying": "/qualifying"
+    "q": "/qualifying", "qualifying": "/qualifying",
+    "i" : "", "info" : ""
 }
-
-def get_url_suffix(metadata_type):
-    try:
-        return SESSION_KEY_CONSTRAINT[metadata_type]
-    except KeyError:
-        raise ValueError(f"ERROR: Invalid metadata type : {metadata_type}")
-
-def construct_race_url(year, round_number, session_type):
-    session_type = get_url_suffix(session_type)
-    return f"{ERGAST_API_BASE_URL}/{year}/{round_number}{session_type}.json"
-
 
 @retry(wait=wait_fixed(2), stop=stop_after_attempt(5))
 async def fetch_data_from_url(year, round_number, session_name):
     try:
-        url = construct_race_url(year, round_number, session_name)
+        url = f"{ERGAST_API_BASE_URL}/{year}/{round_number}{SESSION_KEY_CONSTRAINT[session_name]}.json"
         timeout = aiohttp.ClientTimeout(total=30) 
         async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.get(url) as response:

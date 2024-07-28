@@ -1,7 +1,9 @@
 import sys
 sys.path.insert(1, "..")
 from abc import ABC, abstractmethod
-from database_connect import user
+from database_connect import DBServer
+
+database = DBServer()
 
 class f1ElementEntities(ABC):
     @abstractmethod
@@ -24,7 +26,7 @@ class driverElement(f1ElementEntities):
     def insert_element_to_database(self):
         sql = "INSERT INTO Drivers(driver_ref, driver_firstname, driver_lastname, driver_nationality, driver_birthdate, url) VALUES(%s, %s, %s, %s, %s, %s)"
         val = (self.driver_ref, self.driver_firstname, self.driver_lastname, self.driver_nationality, self.driver_birth_date, self.driver_url)
-        user.cursor.execute(sql, val)
+        database.cursor.execute(sql, val)
 
 class circuitElement(f1ElementEntities):
     def __init__(self, element_data):
@@ -37,7 +39,7 @@ class circuitElement(f1ElementEntities):
     def insert_element_to_database(self):
         sql = "INSERT INTO Circuits(circuit_name, circuit_ref, circuit_country, circuit_location, url) VALUES(%s, %s, %s, %s, %s)"
         val = (self.circuit_name, self.circuit_ref, self.circuit_country, self.circuit_location, self.circuit_url)
-        user.cursor.execute(sql, val)
+        database.cursor.execute(sql, val)
 
 class constructorElement(f1ElementEntities):
     def __init__(self, element_data):
@@ -49,7 +51,7 @@ class constructorElement(f1ElementEntities):
     def insert_element_to_database(self):
         sql = "INSERT INTO Constructors(constructor_ref, constructor_name, constructor_nationality, url) VALUES(%s, %s, %s, %s)"
         val = (self.constructor_ref, self.constructor_name, self.constructor_nationality, self.constructor_url)
-        user.cursor.execute(sql, val)
+        database.cursor.execute(sql, val)
 
 
 def get_value(json_obj, *keys):

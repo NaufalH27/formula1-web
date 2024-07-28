@@ -1,18 +1,30 @@
+import sys
+sys.path.insert(1, "..")
+from API.API_fetch_race import fetch_data_from_url
 
 class f1round:
-    def __init__(self, year, round_number, race_data, qualifying_data):
+    def __init__(self, year, round_number):
         self.year = year
         self.round_number = round_number
-        self.race_data = race_data["MRData"]["RaceTable"]
-        self.qualifying_data = qualifying_data["MRData"]["RaceTable"]
+        self.race_info = None
+        self.race_data = None
+        self.qualifying_data = None
+
+    async def fetch_data(self):
+        awaited_race_info = await fetch_data_from_url(self.year, self.round_number, "info")
+        awaited_race_data = await fetch_data_from_url(self.year, self.round_number, "race")
+        awaited_qualifying_data = await fetch_data_from_url(self.year, self.round_number, "qualifying")
         
+        self.race_info = awaited_race_info["MRData"]["RaceTable"]
+        self.race_data = awaited_race_data["MRData"]["RaceTable"]
+        self.qualifying_data = awaited_qualifying_data["MRData"]["RaceTable"]
 
     def get_race_info_data(self):
-        return self.race_data
+        return self.race_info
     
     def get_participant_data(self):
         qualifying_results = get_value(self.qualifying_data,"Races", 0, "QualifyingResults") or []
-        race_results =  get_value(self.race_data,"Races", 0, "Results")
+        race_results =  get_value(self.race_data,"Races", 0, "Results") or []
         participant_list = qualifying_results + race_results
         processed_participant = []
         unique_participant = set()

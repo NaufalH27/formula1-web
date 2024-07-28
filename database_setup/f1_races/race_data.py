@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from f1_races.round_class import *
-from f1_races.race_element import *
+from f1_races.round_class import f1round
+from f1_races.race_element import raceInfoElement, raceParticipantElement, participantRaceResultElement, participantQualifyingResultElement
 
 class f1RaceData(ABC):
     @abstractmethod
