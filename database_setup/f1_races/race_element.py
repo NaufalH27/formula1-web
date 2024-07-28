@@ -54,9 +54,10 @@ class participantRaceResultElement(element):
         self.driver_number = get_value(element_data, "number") or "0"
         self.driver_ref = get_value(element_data, "Driver", "driverId")
         self.constructor_ref = get_value(element_data, "Constructor", "constructorId")
+        self.race_id = fetch_id_from_database("SELECT race_id FROM Races WHERE season_year = %s AND round_number = %s", (year, round_number))
         self.driver_id = fetch_id_from_database("SELECT driver_id FROM Drivers WHERE driver_ref = %s", (self.driver_ref,))
         self.constructor_id = fetch_id_from_database("SELECT constructor_id FROM Constructors WHERE constructor_ref = %s", (self.constructor_ref,))
-        self.participant_id = fetch_id_from_database("SELECT participant_id FROM RaceParticipants WHERE  driver_id = %s AND constructor_id = %s AND driver_number = %s", (self.driver_id, self.constructor_id, self.driver_number,))
+        self.participant_id = fetch_id_from_database("SELECT participant_id FROM RaceParticipants WHERE race_id = %s AND driver_id = %s AND driver_number = %s", (self.race_id, self.driver_id, self.driver_number,))
         
     def insert_element_to_database(self):
         sql = "INSERT INTO raceResults(participant_id, position, position_text, status_flag, best_lap_time, driver_race_time, points) VALUES(%s, %s, %s, %s, %s, %s, %s)"
@@ -72,9 +73,10 @@ class participantQualifyingResultElement(element):
         self.driver_number = get_value(element_data, "number") or "0"
         self.driver_ref = get_value(element_data, "Driver", "driverId")
         self.constructor_ref = get_value(element_data, "Constructor", "constructorId")
+        self.race_id = fetch_id_from_database("SELECT race_id FROM Races WHERE season_year = %s AND round_number = %s", (year, round_number))
         self.driver_id = fetch_id_from_database("SELECT driver_id FROM Drivers WHERE driver_ref = %s", (self.driver_ref,))
         self.constructor_id = fetch_id_from_database("SELECT constructor_id FROM Constructors WHERE constructor_ref = %s", (self.constructor_ref,))
-        self.participant_id = fetch_id_from_database("SELECT participant_id FROM RaceParticipants WHERE  driver_id = %s AND constructor_id = %s AND driver_number = %s", (self.driver_id, self.constructor_id, self.driver_number,))
+        self.participant_id = fetch_id_from_database("SELECT participant_id FROM RaceParticipants WHERE race_id = %s AND driver_id = %s AND driver_number = %s", (self.race_id, self.driver_id, self.driver_number,))
 
     def insert_element_to_database(self):
         sql = "INSERT INTO qualifyingResults(participant_id, qualifying_position, Q1, Q2, Q3) VALUES(%s, %s, %s, %s, %s)"

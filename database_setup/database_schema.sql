@@ -45,7 +45,7 @@ CREATE TABLE raceParticipants(
     driver_id INT NOT NULL,
     constructor_id INT NOT NULL,
     driver_number INT NOT NULL,
-    UNIQUE KEY unique_constraint(race_id,driver_id, constructor_id, driver_number),
+    UNIQUE KEY unique_constraint(race_id,driver_id, driver_number),
     FOREIGN KEY(driver_id) REFERENCES Drivers(driver_id),
     FOREIGN KEY(race_id) REFERENCES races(race_id),
     FOREIGN KEY(constructor_id) REFERENCES Constructors(constructor_id)
