@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(1, "..")
 from API.API_fetch_race import fetch_data_from_url
+import time
 
 class f1round:
     def __init__(self, year, round_number):
@@ -14,6 +15,7 @@ class f1round:
         awaited_race_info = await fetch_data_from_url(self.year, self.round_number, "info")
         awaited_race_data = await fetch_data_from_url(self.year, self.round_number, "race")
         awaited_qualifying_data = await fetch_data_from_url(self.year, self.round_number, "qualifying")
+        time.sleep(1)
         
         self.race_info = awaited_race_info["MRData"]["RaceTable"]
         self.race_data = awaited_race_data["MRData"]["RaceTable"]
