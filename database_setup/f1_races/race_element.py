@@ -20,12 +20,14 @@ class raceInfoElement(element):
         self.round_number = round_number
         self.circuit_ref = get_value(element_data, "Races", 0, "Circuit", "circuitId")
         self.date = get_value(element_data, "Races", 0, "date")
+        self.rice_time_in_utc = get_value(element_data, "Races", 0, "time")
+        self.rice_time_in_utc = self.rice_time_in_utc[:-1] if self.rice_time_in_utc is not None else None
         self.grandPrix_name = get_value(element_data, "Races", 0, "raceName")
         self.circuit_id = fetch_id_from_database("SELECT circuit_id FROM Circuits WHERE circuit_ref = %s", (self.circuit_ref,))
         
     def insert_element_to_database(self):
-        sql = "INSERT INTO races (season_year, circuit_id, race_date, round_number, GrandPrix_name) VALUES (%s, %s, %s, %s, %s)"
-        val = (self.season_year, self.circuit_id, self.date, self.round_number, self.grandPrix_name)
+        sql = "INSERT INTO races (season_year, circuit_id, race_date, rice_time_in_utc, round_number, GrandPrix_name) VALUES (%s, %s, %s, %s, %s, %s)"
+        val = (self.season_year, self.circuit_id, self.date, self.rice_time_in_utc, self.round_number, self.grandPrix_name)
         database.cursor.execute(sql, val)
 
 class raceParticipantElement(element):

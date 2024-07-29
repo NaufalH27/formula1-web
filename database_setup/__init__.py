@@ -8,7 +8,7 @@ database = DBServer()
 # Connect your server right here
 host = "1.1.1.1"
 user = "root"
-password="YourPassword" 
+password="pw" 
 
 if __name__ == "__main__":
   database.set_server(host, user, password)

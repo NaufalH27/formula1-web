@@ -34,6 +34,7 @@ CREATE TABLE races(
     round_number INT NOT NULL,
     circuit_id INT NOT NULL,
     race_date DATE NOT NULL,
+    rice_time_in_utc TIME,
     GrandPrix_name VARCHAR(255) NOT NULL,
     UNIQUE KEY unique_constraint(round_number, season_year),
     FOREIGN KEY (circuit_id) REFERENCES Circuits(circuit_id)
