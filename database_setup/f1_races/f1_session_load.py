@@ -3,7 +3,7 @@ sys.path.insert(1, "..")
 import asyncio
 from API.API_fetch_race import MAX_ROUND
 from f1_races.round_class import f1round
-from f1_races.race_data import f1RaceData, raceInfo, raceParticipant, participantRaceResult, participantQualifyingResult
+from f1_races.race_data import f1RaceData, raceInfo, raceParticipant, participantRaceResult, participantQualifyingResult, participantSprintResult
 from database_connect import DBServer
 
 database = DBServer()
@@ -22,6 +22,8 @@ class f1season:
                 load_data(participantRaceResult(round))
             if round.get_qualifying_result_element_data() is not None:
                 load_data(participantQualifyingResult(round))
+            if round.get_sprint_element_data() is not None:
+                load_data(participantSprintResult(round))
 
             database.commit()
             print(f"LOG : season {self.year} round {round.get_round_number()} has been loaded")

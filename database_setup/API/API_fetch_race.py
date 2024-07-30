@@ -16,7 +16,8 @@ MAX_ROUND = {
 SESSION_KEY_CONSTRAINT = {
     "r": "/results", "race": "/results",
     "q": "/qualifying", "qualifying": "/qualifying",
-    "i" : "", "info" : ""
+    "i" : "", "info" : "",
+    "s" : "/sprint", "sprint" : "/sprint"
 }
 
 @retry(wait=wait_fixed(2), stop=stop_after_attempt(5))

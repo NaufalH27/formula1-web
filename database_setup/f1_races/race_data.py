@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from f1_races.round_class import f1round
-from f1_races.race_element import raceInfoElement, raceParticipantElement, participantRaceResultElement, participantQualifyingResultElement
+from f1_races.race_element import raceInfoElement, raceParticipantElement, participantRaceResultElement, participantQualifyingResultElement, participantSprintResultElement
 
 class f1RaceData(ABC):
     @abstractmethod
@@ -49,3 +49,13 @@ class participantQualifyingResult(f1RaceData):
     def load_data_to_database(self):
         for element in self.data:
             participantQualifyingResultElement(element, self.year, self.round_number).insert_element_to_database()
+
+class participantSprintResult(f1RaceData):
+    def __init__(self, round:f1round):
+        self.data = round.get_sprint_element_data()
+        self.year = round.get_year()
+        self.round_number = round.get_round_number()
+    
+    def load_data_to_database(self):
+        for element in self.data:
+            participantSprintResultElement(element, self.year, self.round_number).insert_element_to_database()

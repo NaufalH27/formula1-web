@@ -20,14 +20,14 @@ class raceInfoElement(element):
         self.round_number = round_number
         self.circuit_ref = get_value(element_data, "Races", 0, "Circuit", "circuitId")
         self.date = get_value(element_data, "Races", 0, "date")
-        self.rice_time_in_utc = get_value(element_data, "Races", 0, "time")
-        self.rice_time_in_utc = self.rice_time_in_utc[:-1] if self.rice_time_in_utc is not None else None
+        self.race_time_in_utc = get_value(element_data, "Races", 0, "time")
+        self.race_time_in_utc = self.race_time_in_utc[:-1] if self.race_time_in_utc is not None else None
         self.grandPrix_name = get_value(element_data, "Races", 0, "raceName")
         self.circuit_id = fetch_id_from_database("SELECT circuit_id FROM Circuits WHERE circuit_ref = %s", (self.circuit_ref,))
         
     def insert_element_to_database(self):
-        sql = "INSERT INTO races (season_year, circuit_id, race_date, rice_time_in_utc, round_number, GrandPrix_name) VALUES (%s, %s, %s, %s, %s, %s)"
-        val = (self.season_year, self.circuit_id, self.date, self.rice_time_in_utc, self.round_number, self.grandPrix_name)
+        sql = "INSERT INTO races (season_year, circuit_id, race_date, race_time_in_utc, round_number, GrandPrix_name) VALUES (%s, %s, %s, %s, %s, %s)"
+        val = (self.season_year, self.circuit_id, self.date, self.race_time_in_utc, self.round_number, self.grandPrix_name)
         database.cursor.execute(sql, val)
 
 class raceParticipantElement(element):
@@ -49,9 +49,11 @@ class participantRaceResultElement(element):
     def __init__(self, element_data, year, round_number):
         self.position = get_value(element_data, "position")
         self.position_text = get_value(element_data, "positionText")
+        self.total_laps = get_value(element_data, "laps")
         self.status_flag = get_value(element_data, "status")
         self.best_lap_time = get_value(element_data, "FastestLap", "Time", "time")
         self.driver_race_time = get_value(element_data, "Time", "time")
+        self.average_speed = get_value(element_data, "FastestLap", "AverageSpeed", "speed")
         self.points = get_value(element_data, "points")
         self.driver_number = get_value(element_data, "number") or "0"
         self.driver_ref = get_value(element_data, "Driver", "driverId")
@@ -62,8 +64,8 @@ class participantRaceResultElement(element):
         self.participant_id = fetch_id_from_database("SELECT participant_id FROM RaceParticipants WHERE race_id = %s AND driver_id = %s AND driver_number = %s", (self.race_id, self.driver_id, self.driver_number,))
         
     def insert_element_to_database(self):
-        sql = "INSERT INTO raceResults(participant_id, position, position_text, status_flag, best_lap_time, driver_race_time, points) VALUES(%s, %s, %s, %s, %s, %s, %s)"
-        val = (self.participant_id, self.position, self.position_text, self.status_flag, self.best_lap_time, self.driver_race_time, self.points)
+        sql = "INSERT INTO raceResults(participant_id, position, position_text, total_laps, status_flag, best_lap_time, driver_race_time, average_speed_in_kph, points) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        val = (self.participant_id, self.position, self.position_text, self.total_laps, self.status_flag, self.best_lap_time, self.driver_race_time, self.average_speed, self.points)
         database.cursor.execute(sql, val)
 
 class participantQualifyingResultElement(element):
@@ -83,6 +85,28 @@ class participantQualifyingResultElement(element):
     def insert_element_to_database(self):
         sql = "INSERT INTO qualifyingResults(participant_id, qualifying_position, Q1, Q2, Q3) VALUES(%s, %s, %s, %s, %s)"
         val = (self.participant_id, self.position, self.q1, self.q2, self.q3)
+        database.cursor.execute(sql, val)
+
+class participantSprintResultElement(element):
+    def __init__(self, element_data, year, round_number):
+        self.position = get_value(element_data, "position")
+        self.position_text = get_value(element_data, "positionText")
+        self.total_laps = get_value(element_data, "laps")
+        self.status_flag = get_value(element_data, "status")
+        self.best_lap_time = get_value(element_data, "FastestLap", "Time", "time")
+        self.driver_race_time = get_value(element_data, "Time", "time")
+        self.points = get_value(element_data, "points")
+        self.driver_number = get_value(element_data, "number") or "0"
+        self.driver_ref = get_value(element_data, "Driver", "driverId")
+        self.constructor_ref = get_value(element_data, "Constructor", "constructorId")
+        self.race_id = fetch_id_from_database("SELECT race_id FROM Races WHERE season_year = %s AND round_number = %s", (year, round_number))
+        self.driver_id = fetch_id_from_database("SELECT driver_id FROM Drivers WHERE driver_ref = %s", (self.driver_ref,))
+        self.constructor_id = fetch_id_from_database("SELECT constructor_id FROM Constructors WHERE constructor_ref = %s", (self.constructor_ref,))
+        self.participant_id = fetch_id_from_database("SELECT participant_id FROM RaceParticipants WHERE race_id = %s AND driver_id = %s AND driver_number = %s", (self.race_id, self.driver_id, self.driver_number,))
+        
+    def insert_element_to_database(self):
+        sql = "INSERT INTO sprintResults(participant_id, position, position_text, total_laps, status_flag, best_lap_time, driver_race_time, points) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+        val = (self.participant_id, self.position, self.position_text,self.total_laps, self.status_flag, self.best_lap_time, self.driver_race_time, self.points)
         database.cursor.execute(sql, val)
 
 def get_value(json_obj, *keys):

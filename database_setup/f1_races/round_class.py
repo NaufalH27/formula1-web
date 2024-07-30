@@ -15,19 +15,22 @@ class f1round:
         awaited_race_info = await fetch_data_from_url(self.year, self.round_number, "info")
         awaited_race_data = await fetch_data_from_url(self.year, self.round_number, "race")
         awaited_qualifying_data = await fetch_data_from_url(self.year, self.round_number, "qualifying")
-        time.sleep(1)
+        awaited_sprint_data = await fetch_data_from_url(self.year, self.round_number, "sprint")
+        time.sleep(0.5)
         
         self.race_info = awaited_race_info["MRData"]["RaceTable"]
         self.race_data = awaited_race_data["MRData"]["RaceTable"]
         self.qualifying_data = awaited_qualifying_data["MRData"]["RaceTable"]
+        self.sprint_data = awaited_sprint_data["MRData"]["RaceTable"]
 
     def get_race_info_data(self):
         return self.race_info
     
     def get_participant_data(self):
         qualifying_results = get_value(self.qualifying_data,"Races", 0, "QualifyingResults") or []
+        sprint_results = get_value(self.sprint_data, "Races", 0, "SprintResults") or []
         race_results =  get_value(self.race_data,"Races", 0, "Results") or []
-        participant_list = qualifying_results + race_results
+        participant_list = qualifying_results + sprint_results + race_results
         processed_participant = []
         unique_participant = set()
 
@@ -47,6 +50,9 @@ class f1round:
 
     def get_qualifying_result_element_data(self):
         return get_value(self.qualifying_data, "Races", 0, "QualifyingResults")
+    
+    def get_sprint_element_data(self):
+        return get_value(self.sprint_data, "Races", 0, "SprintResults")
 
     def get_year(self):
         return self.year

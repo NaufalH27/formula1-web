@@ -34,7 +34,7 @@ CREATE TABLE races(
     round_number INT NOT NULL,
     circuit_id INT NOT NULL,
     race_date DATE NOT NULL,
-    rice_time_in_utc TIME,
+    race_time_in_utc TIME,
     GrandPrix_name VARCHAR(255) NOT NULL,
     UNIQUE KEY unique_constraint(round_number, season_year),
     FOREIGN KEY (circuit_id) REFERENCES Circuits(circuit_id)
@@ -57,9 +57,11 @@ CREATE TABLE raceResults(
     participant_id INT NOT NULL,
     position INT NOT NULL,
     position_text VARCHAR(255) NOT NULL,
+    total_laps INT NOT NULL,
     status_flag VARCHAR(255) NOT NULL,
     best_lap_time TIME,
     driver_race_time VARCHAR(255),
+    average_speed_in_kph FLOAT,
     points INT NOT NULL,
     FOREIGN KEY (participant_id) REFERENCES raceParticipants(participant_id)
 );
@@ -73,6 +75,20 @@ CREATE TABLE qualifyingResults(
     Q3 TIME,
     FOREIGN KEY (participant_id) REFERENCES raceParticipants(participant_id)
 );
+
+CREATE TABLE sprintResults(
+    sprintresult_id INT AUTO_INCREMENT PRIMARY KEY,
+    participant_id INT NOT NULL,
+    position INT NOT NULL,
+    position_text VARCHAR(255) NOT NULL,
+    total_laps INT NOT NULL,
+    status_flag VARCHAR(255) NOT NULL,
+    best_lap_time TIME,
+    driver_race_time VARCHAR(255),
+    points INT NOT NULL,
+    FOREIGN KEY (participant_id) REFERENCES raceParticipants(participant_id)
+);
+
 
 CREATE TABLE DriverTotalPoints (
     season_year INT NOT NULL,
@@ -92,8 +108,34 @@ CREATE TABLE ConstructorTotalPoints (
 
 DELIMITER $$
 
-CREATE TRIGGER update_total_points
+CREATE TRIGGER update_total_points_raceResults
 AFTER INSERT ON raceResults
+FOR EACH ROW
+BEGIN
+    DECLARE v_season_year INT;
+    DECLARE v_driver_id INT;
+    DECLARE v_constructor_id INT;
+    
+    SELECT races.season_year, raceParticipants.driver_id, raceParticipants.constructor_id
+    INTO v_season_year, v_driver_id, v_constructor_id
+    FROM raceParticipants 
+    JOIN races ON raceParticipants.race_id = races.race_id
+    WHERE raceParticipants.participant_id = NEW.participant_id;
+    
+    INSERT INTO DriverTotalPoints (season_year, driver_id, total_points)
+    VALUES (v_season_year, v_driver_id, NEW.points)
+    ON DUPLICATE KEY UPDATE total_points = total_points + NEW.points;
+
+    INSERT INTO ConstructorTotalPoints (season_year, constructor_id, total_points)
+    VALUES (v_season_year, v_constructor_id, NEW.points)
+    ON DUPLICATE KEY UPDATE total_points = total_points + NEW.points;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER update_total_points_sprintResults
+AFTER INSERT ON sprintResults
 FOR EACH ROW
 BEGIN
     DECLARE v_season_year INT;
