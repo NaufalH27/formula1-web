@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/results.css">
+    <link rel="stylesheet" href="/static/css/info.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <div class="tireTrailDecorationContainer">
+        <div class="tireTrailDecoration"></div>
+    </div>
+
+    <header class="topBarFixed"> 
+        <div class="navbar">
+            <div class = "logoContainer">
+                <a class="logo">LOGO</a>
+            </div>
+            <nav class="navigation">
+               <a href="/" class="nav__link" data-link>Dashboard</a>
+               <a href="/results" class="nav__link" data-link>Results</a>
+               <a href="/schedule" class="nav__link" data-link>Schedule</a>
+               <a href="/info" class="nav__link" data-link>Info</a>
+            </nav>
+            <div class="githubLogoContainer">
+                <a href="https://github.com/NaufalH27/formula1-web"  target="_blank">
+                    <img src="static/assets/images/github-logo.png"  width=50px >
+                </a>
+            </div>
+        </div>  
+    </header>    
+    </div>
+    <div class="contentContainer">
+        <div class="webContent" id="app">
+        </div>
+    </div>
+    <script type="module" src="/static/js/index.js" defer></script>
+    <script type="module" src="/static/js/ui/scheduleScroll.js" defer></script>
+</body>
+</html>

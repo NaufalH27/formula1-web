@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "inter-bold";
+    src: url(" ../assets/fonts/Inter-Bold.ttf");
+}
+@font-face {
+    font-family: "sport-night-ns";
+    src: url(" ../assets/fonts/SF\ Sports\ Night\ NS.ttf");
+}
+@font-face {
+    font-family: "inter-ExtraBold";
+    src: url(" ../assets/fonts/InterDisplay-ExtraBold.ttf");
+}
+@font-face {
+    font-family: "inter-semiBold";
+    src: url(" ../assets/fonts/InterDisplay-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "A25-squanova";
+    src: url(" ../assets/fonts/A25-SQUANOVA.ttf");
+}
