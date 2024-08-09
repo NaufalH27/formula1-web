@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const dashboardStandings = require("./backend/queries/Dashboard/standingData.js");
 const scheduleData = require("./backend/queries/dashboard/scheduleData.js")
+const chartData = require("./backend/queries/dashboard/chartData.js")
 
 const app = express();
 
@@ -19,12 +20,16 @@ app.get("/api/dashboardLeaderboard/constructor", async (req, res) => {
 
 app.get("/api/dashboardSchedule", async(req, res) => {
     const awaitedJsonData = await scheduleData.getSchedule();
-    res.json(awaitedJsonData);
+    res.send(awaitedJsonData);
+})
+
+app.get("/api/fullPointResultForCurrentSeason", async(req, res) => {
+    const awaitedJsonData = await chartData.getFullPointsForCurrentSeason()
+    res.send(awaitedJsonData)
 })
 
 app.get("/*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "index.html"));
-
 });
 
 

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/results.css">
+    <link rel="stylesheet" href="/static/css/info.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <div class="tireTrailDecorationContainer">
+        <div class="tireTrailDecoration"></div>
+    </div>
+
+    <header class="topBarFixed"> 
+        <div class="navbar">
+            <div class = "logoContainer">
+                <a class="logo">LOGO</a>
+            </div>
+            <nav class="navigation">
+               <a href="/" class="nav__link" data-link>Dashboard</a>
+               <a href="/results" class="nav__link" data-link>Results</a>
+               <a href="/schedule" class="nav__link" data-link>Schedule</a>
+               <a href="/info" class="nav__link" data-link>Info</a>
+            </nav>
+            <div class="githubLogoContainer">
+                <a href="https://github.com/NaufalH27/formula1-web"  target="_blank">
+                    <img src="static/assets/github-logo.png"  width=50px >
+                </a>
+            </div>
+        </div>  
+    </header>    
+    </div>
+    <div class="contentContainer">
+        <div class="webContent">
+            <div id="app"></div>
+            <div class="mainArea">
+                <div class = raceScheduleAreaContainer> 
+                    <div class="raceScheduleArea">
+                        <div class="buttonAreaAboveSchedule">
+                            <div class="leftSideOfbuttonAreaAboveSchedule">
+                                <a class="scheduleText">2024 Schedule</a>
+                            </div>
+                            <div class="rightSideOfbuttonAreaAboveSchedule">
+                                <a href="/schedule" class="scheduleButton" data-link>More Schedule →</a>
+                            </div>
+                        </div>
+                        <div id="left" class="raceScheduleButton">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </div>
+                        <div class="raceScheduleContainer"  onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">24-26</div>
+                                        <div class="monthScheduleText">Aug</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > Dutch Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 15</div>
+                                        <div class="raceTimeSchedule">13:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">31-2</div>
+                                        <div class="monthScheduleText">Aug-Sep</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > Italian Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 16</div>
+                                        <div class="raceTimeSchedule">13:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">14-16</div>
+                                        <div class="monthScheduleText">Sep</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > Azerbaijan Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 17</div>
+                                        <div class="raceTimeSchedule">11:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">21-23</div>
+                                        <div class="monthScheduleText">Sep</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > Singapore Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 18</div>
+                                        <div class="raceTimeSchedule">12:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">19-21</div>
+                                        <div class="monthScheduleText">Oct</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > United States Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 19</div>
+                                        <div class="raceTimeSchedule">19:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">26-28</div>
+                                        <div class="monthScheduleText">Oct</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > Mexico City Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 20</div>
+                                        <div class="raceTimeSchedule">20:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">2-4</div>
+                                        <div class="monthScheduleText">Nov</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > São Paulo Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 21</div>
+                                        <div class="raceTimeSchedule">17:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">22-24</div>
+                                        <div class="monthScheduleText">Nov</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > Las Vegas Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 22</div>
+                                        <div class="raceTimeSchedule">06:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">30-2</div>
+                                        <div class="monthScheduleText">Nov-Dec</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > Qatar Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 23</div>
+                                        <div class="raceTimeSchedule">17:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                        
+                            <div class="raceSchedule">
+                                <div class="topScheduleArea">
+                                    <div class="dateAndMonthScheduleContainer">
+                                        <div class="dateScheduleText">7-9</div>
+                                        <div class="monthScheduleText">Dec</div>
+                                    </div>  
+                                </div>
+                                <div class="bottomScheduleArea">
+                                    <a href="/" class="GPName"> <img class ="scheduleFlag"src="static/assets/hungary.png" > Abu Dhabi Grand Prix 2024</a>
+                                    <div class="roundAndRaceTimeScheduleContainer">   
+                                        <div class="roundText">round 24</div>
+                                        <div class="raceTimeSchedule">13:00 UTC</div>
+                                    </div>   
+                                </div>
+                            </div>
+                            <div class="scheduleDeadEnd">
+                                <div class="text">
+                                    no schedule left
+                                </div>
+                            </div>
+                        </div>
+                        <div id="right" class="raceScheduleButton">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="chartContainer">
+                    <canvas id="driverPointChart"></canvas>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('driverPointChart');
+      
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['1','2', '3', '4', '50'],
+            datasets: [{
+                label: 'Max Verstappen',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }, 
+            {
+                label: 'My First Dataset',
+                data: [34, 72, 61, 48, 91, 67, 53],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+    
+    
+
+    <script type="module" src="/static/js/index.js" defer></script>
+</body>
+</html>

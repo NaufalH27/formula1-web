@@ -2,6 +2,7 @@ import abstractView from "./abstractView.js";
 import generateHtmlForDriverLeaderboard from "../content/dashboard/renderDriverStandings.js"
 import generateHtmlForConstructorLeaderboard from "../content/dashboard/renderConstructorStandings.js"
 import generateHtmlForSchedule from "../content/dashboard/renderScheduleCard.js"
+import generateChart from "../content/dashboard/renderPointChart.js"
 import scheduleScroll from "../ui/scheduleScroll.js";
 
 
@@ -20,6 +21,7 @@ export default class extends abstractView {
         const driverLeaderboardHtml = await generateHtmlForDriverLeaderboard();
         const constructorLeaderboardHtml = await generateHtmlForConstructorLeaderboard();
         const scheduleHtml = await generateHtmlForSchedule();
+        generateChart()
 
         return `
         <div class="dashboardStandingArea">
@@ -87,23 +89,10 @@ export default class extends abstractView {
                     </div>
                 </div>
             </div>
-            <div class="recentRaceContainer">
-                <div class="title">recent race</div>
-                <div class="podium">
-                    <div class="podium-step second">
-                        <div>2nd</div>
-                        <div class="step-content"></div>
-                    </div>
-                    <div class="podium-step first">
-                        <div>1st</div>
-                        <div class="step-content"></div>
-                    </div>
-                    <div class="podium-step third">
-                        <div>3rd</div>
-                        <div class="step-content"></div>
-                    </div>
-                </div>
-            </div>
+            DRIVER CHARTS
+            <canvas id="driverPointChart" class="pointCharts"></canvas>
+            CONSTRUCTOR CHARTS
+            <canvas id="constructorPointChart" class="pointCharts"></canvas>
         </div>`
          ;
     }
